@@ -1,0 +1,926 @@
+{
+  "recordedAt": "2026-10-19T09:41:04.918Z",
+  "chainId": 61999,
+  "network": "GenLayer Studionet",
+  "contractAddress": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+  "contractSourceSha256": "9f10d3c10d6416fd20a1889ca3c8087b7720aaa5a61684ab0c282aecc9089dd2",
+  "actors": {
+    "researcher": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+    "analyst": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6"
+  },
+  "notice": "Synthetic intended uses and project-controlled actors. Public official metadata; no scientific suitability, observation accuracy or causal certification.",
+  "transactions": [
+    {
+      "label": "labor-force-create",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "create_covenant",
+        "args": [
+          "labor-force",
+          "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+          "{\"population\":\"The total labor force, without claiming specific age, sex or household coverage.\",\"geography\":\"USA\",\"period\":{\"from\":2020,\"to\":2023},\"measurement\":\"Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.\",\"exclusions\":\"Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.\",\"use\":\"DESCRIPTIVE_ONLY\"}",
+          "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+          "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+          "",
+          ""
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:36:03.975Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xe2617815a2c40df0d28cfe0c768c63dcd3e6f7e48f138e80b72422a69c0edeb6",
+      "submittedAt": "2026-10-19T09:36:07.343Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+      },
+      "createdAt": "2026-10-19T09:36:07.048363+00:00",
+      "observedAt": "2026-10-19T09:40:40.857Z"
+    },
+    {
+      "label": "labor-force-capture",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "capture_sources",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "labor-force"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:36:15.697Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xb6ad526f22d59aa2a813455ffd10b08fff913fc6ed787fda39937f2b6da20d8b",
+      "submittedAt": "2026-10-19T09:36:21.779Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle"
+      },
+      "createdAt": "2026-10-19T09:36:21.620705+00:00",
+      "observedAt": "2026-10-19T09:40:42.998Z"
+    },
+    {
+      "label": "labor-force-assess",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "assess",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "labor-force"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:36:30.346Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x2378547984fd780a9e041a0fe3e9e72c648ba8bace1483fda5018f2b5c707409",
+      "submittedAt": "2026-10-19T09:36:37.704Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "agree",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "disagree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "createdAt": "2026-10-19T09:36:37.567885+00:00",
+      "observedAt": "2026-10-19T09:40:45.138Z"
+    },
+    {
+      "label": "labor-force-acknowledge",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "acknowledge",
+        "args": [
+          "labor-force",
+          "335ad9921a51b9f3015df59b02c43e40349fca2f0d7f30b58769fd5e6073f95a"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:37:24.753Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x1379d40c47ce9938812fd5d055e63f08ec472461ff51e8920f47291eaeaa48f7",
+      "submittedAt": "2026-10-19T09:37:28.635Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x2FcBC452425f2F1e102c5c04b4331fcB46ee1c00": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "idle",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree"
+      },
+      "createdAt": "2026-10-19T09:37:28.373957+00:00",
+      "observedAt": "2026-10-19T09:40:47.294Z"
+    },
+    {
+      "label": "all-adults-create",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "create_covenant",
+        "args": [
+          "all-adults",
+          "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+          "{\"population\":\"All adult residents, including adults outside the labor force, as the denominator.\",\"geography\":\"USA\",\"period\":{\"from\":2020,\"to\":2023},\"measurement\":\"Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.\",\"exclusions\":\"Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.\",\"use\":\"DESCRIPTIVE_ONLY\"}",
+          "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+          "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+          "",
+          ""
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:37:42.000Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xfd8a23097213200f50dbfe7106855ae8f74ca9e6d71638caa3546b249a199ad1",
+      "submittedAt": "2026-10-19T09:37:45.517Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      },
+      "createdAt": "2026-10-19T09:37:45.445172+00:00",
+      "observedAt": "2026-10-19T09:40:49.471Z"
+    },
+    {
+      "label": "all-adults-capture",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "capture_sources",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "all-adults"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:37:54.490Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x7cf338e968e927b0381e925f1279f003709838eae7bfcd32b98a90c09c3b5d1a",
+      "submittedAt": "2026-10-19T09:37:58.028Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "idle",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "idle",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "createdAt": "2026-10-19T09:37:57.799969+00:00",
+      "observedAt": "2026-10-19T09:40:51.733Z"
+    },
+    {
+      "label": "all-adults-assess",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "assess",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "all-adults"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:38:15.814Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xbe3a0aba208542aa8250c1faccb9f25609aebc01d7ebd22980fc5a8855bce9de",
+      "submittedAt": "2026-10-19T09:38:19.941Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "idle",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x6a4179A851B3747A458baD2f089AB2EeFE0eBbAb": "idle",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "createdAt": "2026-10-19T09:38:19.548788+00:00",
+      "observedAt": "2026-10-19T09:40:53.941Z"
+    },
+    {
+      "label": "all-adults-acknowledge",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "acknowledge",
+        "args": [
+          "all-adults",
+          "c29ec272f1df16a60f4bfaa82fdb948b37b16ec2e2a9c91427e14fdcfeaa21e8"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:38:40.198Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x7eb69bcabaa6e5e3a6d5de48c951a2abcec44d3d3cd194b9637307530e5c6834",
+      "submittedAt": "2026-10-19T09:38:44.013Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "idle",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "idle",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      },
+      "createdAt": "2026-10-19T09:38:43.610415+00:00",
+      "observedAt": "2026-10-19T09:40:56.142Z"
+    },
+    {
+      "label": "causal-revision-create",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "create_covenant",
+        "args": [
+          "causal-revision",
+          "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+          "{\"population\":\"The total labor force, without claiming specific age, sex or household coverage.\",\"geography\":\"USA\",\"period\":{\"from\":2020,\"to\":2023},\"measurement\":\"Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.\",\"exclusions\":\"Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.\",\"use\":\"CAUSAL_EFFECT\"}",
+          "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+          "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+          "labor-force",
+          "c1e7e4d7bd4bca5625f6b56533c924bef499f9f6f6c16dc96f5d950ae1c56014"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:38:59.056Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x8246fcad3e0c73305f1f0bc8bef01b6f86373b5e904e04e34b689383756e9966",
+      "submittedAt": "2026-10-19T09:39:03.477Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x7bf4Ea55363bbe73A4dd5b3900bf03c978A63b6e": "agree",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0xa21bc502E3578E4b3039be8c59a257198f7c3f19": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "agree"
+      },
+      "createdAt": "2026-10-19T09:39:03.100838+00:00",
+      "observedAt": "2026-10-19T09:40:58.362Z"
+    },
+    {
+      "label": "causal-revision-capture",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "capture_sources",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "causal-revision"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:39:12.034Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xc2e4676f8bcf4eb61ea8821324d05235f33333e7f8a0b64874651ed50cc5cd36",
+      "submittedAt": "2026-10-19T09:39:18.727Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x1242E9f5bf9b253327f130E8802b7b2F438A21Ef": "idle",
+        "0x892C437da9b9CA0b6017B6f046F58E3526B46ec6": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xe7eEe8a1c1690b0322d795B80A76ab2Cd1a0eAFd": "idle",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "agree"
+      },
+      "createdAt": "2026-10-19T09:39:18.453558+00:00",
+      "observedAt": "2026-10-19T09:41:00.506Z"
+    },
+    {
+      "label": "causal-revision-assess",
+      "spec": {
+        "kind": "call",
+        "actor": "0x7C028fa8233E9aAB631947e84Ec6C13edcbFb0d6",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "assess",
+        "args": [
+          "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+          "causal-revision"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:39:28.467Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0x95730a4745c061adab214ac8e6b5770d930188661992d694cb375583f88157c3",
+      "submittedAt": "2026-10-19T09:39:35.424Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x0B50B270Eba5D9B780272C4Cf4720260177e761D": "idle",
+        "0x1dEcE6A694520b1d3a2e24b9f28500858C756BDb": "idle",
+        "0x8Ce1805d6970d54748dE7160b5b395dCC5c71F44": "agree",
+        "0x9244De5F20cB75A0c51d79A9A3208D00a99aFc10": "agree",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree"
+      },
+      "createdAt": "2026-10-19T09:39:35.186991+00:00",
+      "observedAt": "2026-10-19T09:41:02.684Z"
+    },
+    {
+      "label": "causal-revision-acknowledge",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "acknowledge",
+        "args": [
+          "causal-revision",
+          "dc320003cdd30cb5e430bb900f440484dfdcd2221075c3547f9ad59b99fb3d19"
+        ],
+        "value": "0",
+        "leaderOnly": false
+      },
+      "intendedAt": "2026-10-19T09:40:25.658Z",
+      "status": "FINALIZED",
+      "execution": "SUCCESS",
+      "hash": "0xc050a241c82c4d88de6d7e231d6e9f3be6acf9e269f5f112f3247a46f41663c8",
+      "submittedAt": "2026-10-19T09:40:29.499Z",
+      "executionResult": "SUCCESS",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x17ac0CaefB18205c737e64ee582c9245A28ca1f9": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "idle",
+        "0xb0925568bFbCF00aADBcA053E6D0E1628ff3d530": "agree",
+        "0xf1C7551292319EE334e2D8A24eAC108Bd4C63b21": "idle",
+        "0xf29b6947ed298d139FC2655DB15D868C9AbB3091": "agree"
+      },
+      "createdAt": "2026-10-19T09:40:29.204810+00:00",
+      "observedAt": "2026-10-19T09:41:04.917Z"
+    }
+  ],
+  "negativeTransactions": [
+    {
+      "label": "old-digest-rejected",
+      "spec": {
+        "kind": "call",
+        "actor": "0x26FDd82Ca699E3C0eeF410AB8D9A36c73361f38F",
+        "address": "0x9080E0C21432C8B3e66061bB9495645ca1c214B5",
+        "method": "acknowledge",
+        "args": [
+          "causal-revision",
+          "335ad9921a51b9f3015df59b02c43e40349fca2f0d7f30b58769fd5e6073f95a"
+        ],
+        "value": "0",
+        "leaderOnly": false,
+        "expectedRollback": "Acknowledgement must bind the exact frozen assessment digest"
+      },
+      "intendedAt": "2026-10-19T09:40:09.405Z",
+      "status": "ACCEPTED",
+      "execution": "ERROR",
+      "hash": "0x65eba5fb76907219b9428fcf6f45caa7cd7eec5d1b79f48901a35efc35d0b727",
+      "submittedAt": "2026-10-19T09:40:12.555Z",
+      "executionResult": "ERROR",
+      "consensusResult": "MAJORITY_AGREE",
+      "leaderOnly": false,
+      "votes": {
+        "0x40533175AfBbAee2c030F88259Afb5aEDbCF0E05": "agree",
+        "0x5Bbbd7cdD63c0ba7f088038Cb049bDDAbE4F6fd1": "agree",
+        "0x8a876C3F3a4783Bd123982bcBF3c672dc0239004": "agree",
+        "0xA712cB25a4002666FA9D09477251f238dD9e06b3": "agree",
+        "0xad7d13f269CeAd4379E64a1A3a0803a827e70B43": "agree"
+      },
+      "createdAt": "2026-10-19T09:40:12.379217+00:00",
+      "observedAt": "2026-10-19T09:40:21.015Z",
+      "expectedFailure": true,
+      "expectedRollbackVerified": true,
+      "decodedRollback": "Acknowledgement must bind the exact frozen assessment digest",
+      "leaderResultStatus": "rollback",
+      "outcome": "EXPECTED_REJECTION"
+    }
+  ],
+  "covenants": [
+    {
+      "acknowledgement": {
+        "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+        "assessment_digest": "335ad9921a51b9f3015df59b02c43e40349fca2f0d7f30b58769fd5e6073f95a",
+        "digest": "06f5565bcd4e560886fbd4e80f79f360c15e9629c74d1e0342ad8cf68c7852b3",
+        "intent_digest": "c1e7e4d7bd4bca5625f6b56533c924bef499f9f6f6c16dc96f5d950ae1c56014",
+        "meaning": "review received; does not override decision or certify suitability",
+        "researcher": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "verdict": "SUPPORTED"
+      },
+      "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+      "assessment": {
+        "causal_design": "NOT_ESTABLISHED",
+        "certification_scope": "metadata support only; no accuracy, representativeness or causal certification",
+        "digest": "335ad9921a51b9f3015df59b02c43e40349fca2f0d7f30b58769fd5e6073f95a",
+        "dimensions": {
+          "exclusions": {
+            "citations": [
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "Official definition states unemployment is the share of the labor force 'without work but available for and seeking employment', exactly the three conditions in the intent and no additional inclusion claims.",
+            "status": "SUPPORTED"
+          },
+          "geography": {
+            "citations": [
+              {
+                "line": 7,
+                "quote": "Country: United States (USA), national series"
+              }
+            ],
+            "mechanism": "deterministic country match",
+            "reason": "The frozen record is USA national data; this adapter cannot establish a global or California series.",
+            "status": "SUPPORTED"
+          },
+          "measurement": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 5,
+                "quote": "Source organization: ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026"
+              },
+              {
+                "line": 8,
+                "quote": "Requested API interval: 2020-2023, annual records"
+              },
+              {
+                "line": 9,
+                "quote": "Non-null available years: 2020,2021,2022,2023"
+              }
+            ],
+            "reason": "Indicator name explicitly includes 'modeled ILO estimate', matching the intent's modeled ILO estimate. The unit is percent of total labor force annually, and the requested 2020-2023 annual records are available.",
+            "status": "SUPPORTED"
+          },
+          "period": {
+            "citations": [
+              {
+                "line": 8,
+                "quote": "Requested API interval: 2020-2023, annual records"
+              },
+              {
+                "line": 9,
+                "quote": "Non-null available years: 2020,2021,2022,2023"
+              },
+              {
+                "line": 10,
+                "quote": "Null missing years: "
+              }
+            ],
+            "mechanism": "deterministic non-null coverage",
+            "reason": "All requested years have non-null official records.",
+            "status": "SUPPORTED"
+          },
+          "population": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "Indicator name states unemployment as '% of total labor force' and the intent specifies total labor force without demographic claims. The official definition confirms denominator is the labor force. No age, sex, household or other coverage is claimed, so the broad labor-force population matches.",
+            "status": "SUPPORTED"
+          }
+        },
+        "intent_digest": "c1e7e4d7bd4bca5625f6b56533c924bef499f9f6f6c16dc96f5d950ae1c56014",
+        "reason_provenance": "leader-authored explanations; semantic statuses independently reproduced and citations substantively checked",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "use": "DESCRIPTIVE_ONLY",
+        "verdict": "SUPPORTED"
+      },
+      "id": "labor-force",
+      "intent": {
+        "exclusions": "Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.",
+        "geography": "USA",
+        "measurement": "Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.",
+        "period": {
+          "from": 2020,
+          "to": 2023
+        },
+        "population": "The total labor force, without claiming specific age, sex or household coverage.",
+        "use": "DESCRIPTIVE_ONLY"
+      },
+      "intent_digest": "c1e7e4d7bd4bca5625f6b56533c924bef499f9f6f6c16dc96f5d950ae1c56014",
+      "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+      "owner": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+      "parent_digest": "",
+      "parent_id": "",
+      "profile": "worldbank-unemployment-usa-2020-2023-v1",
+      "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+      "source": {
+        "digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "lines": [
+          "Adapter: worldbank-unemployment-usa-2020-2023-v1",
+          "Indicator id: SL.UEM.TOTL.ZS",
+          "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment.",
+          "Source organization: ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+          "Dataset collection: World Development Indicators",
+          "Country: United States (USA), national series",
+          "Requested API interval: 2020-2023, annual records",
+          "Non-null available years: 2020,2021,2022,2023",
+          "Null missing years: ",
+          "Scope boundary: no sampling frame, demographic coverage, adjustment details or causal design are inferred beyond the official definition and source organization above."
+        ],
+        "metadata_raw": "[{\"page\":1,\"pages\":1,\"per_page\":\"50\",\"total\":1},[{\"id\":\"SL.UEM.TOTL.ZS\",\"name\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\",\"unit\":\"\",\"source\":{\"id\":\"2\",\"value\":\"World Development Indicators\"},\"sourceNote\":\"Unemployment refers to the share of the labor force that is without work but available for and seeking employment.\",\"sourceOrganization\":\"ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https:\\/\\/ilostat.ilo.org\\/data\\/bulk\\/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026\",\"topics\":[{\"id\":\"4\",\"value\":\"Education \"},{\"id\":\"10\",\"value\":\"Social Protection & Labor\"}]}]]",
+        "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+        "metadata_url": "https://api.worldbank.org/v2/indicator/SL.UEM.TOTL.ZS?format=json",
+        "profile": "worldbank-unemployment-usa-2020-2023-v1",
+        "records": [
+          {
+            "available": true,
+            "year": 2020
+          },
+          {
+            "available": true,
+            "year": 2021
+          },
+          {
+            "available": true,
+            "year": 2022
+          },
+          {
+            "available": true,
+            "year": 2023
+          }
+        ],
+        "series_raw": "[{\"page\":1,\"pages\":1,\"per_page\":100,\"total\":4,\"sourceid\":\"2\",\"lastupdated\":\"2026-10-08\"},[{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2023\",\"value\":3.638,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2022\",\"value\":3.65,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2021\",\"value\":5.349,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2020\",\"value\":8.055,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1}]]",
+        "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+        "series_url": "https://api.worldbank.org/v2/country/USA/indicator/SL.UEM.TOTL.ZS?format=json&date=2020:2023&per_page=100"
+      }
+    },
+    {
+      "acknowledgement": {
+        "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+        "assessment_digest": "c29ec272f1df16a60f4bfaa82fdb948b37b16ec2e2a9c91427e14fdcfeaa21e8",
+        "digest": "ad1296fcab792b34f0812b51f04ead501fca42c7de0bea055d690755df3b7472",
+        "intent_digest": "7b73cc280147f8c649ffded12e8db9d52bf733e654000db4947c7b011df76428",
+        "meaning": "review received; does not override decision or certify suitability",
+        "researcher": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "verdict": "CONTRADICTED"
+      },
+      "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+      "assessment": {
+        "causal_design": "NOT_ESTABLISHED",
+        "certification_scope": "metadata support only; no accuracy, representativeness or causal certification",
+        "digest": "c29ec272f1df16a60f4bfaa82fdb948b37b16ec2e2a9c91427e14fdcfeaa21e8",
+        "dimensions": {
+          "exclusions": {
+            "citations": [
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "The source definition explicitly lists the three required conditions: without work, available for work, and seeking employment.",
+            "status": "SUPPORTED"
+          },
+          "geography": {
+            "citations": [
+              {
+                "line": 7,
+                "quote": "Country: United States (USA), national series"
+              }
+            ],
+            "mechanism": "deterministic country match",
+            "reason": "The frozen record is USA national data; this adapter cannot establish a global or California series.",
+            "status": "SUPPORTED"
+          },
+          "measurement": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 8,
+                "quote": "Requested API interval: 2020-2023, annual records"
+              },
+              {
+                "line": 9,
+                "quote": "Non-null available years: 2020,2021,2022,2023"
+              }
+            ],
+            "reason": "The source matches the intent's requirement for annual records, the modeled ILO estimate, and the unit as a percentage share of the labor force.",
+            "status": "SUPPORTED"
+          },
+          "period": {
+            "citations": [
+              {
+                "line": 8,
+                "quote": "Requested API interval: 2020-2023, annual records"
+              },
+              {
+                "line": 9,
+                "quote": "Non-null available years: 2020,2021,2022,2023"
+              },
+              {
+                "line": 10,
+                "quote": "Null missing years: "
+              }
+            ],
+            "mechanism": "deterministic non-null coverage",
+            "reason": "All requested years have non-null official records.",
+            "status": "SUPPORTED"
+          },
+          "population": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "The source defines the denominator as the labor force, whereas the intent requires all adult residents, including those outside the labor force, to be the denominator.",
+            "status": "CONTRADICTED"
+          }
+        },
+        "intent_digest": "7b73cc280147f8c649ffded12e8db9d52bf733e654000db4947c7b011df76428",
+        "reason_provenance": "leader-authored explanations; semantic statuses independently reproduced and citations substantively checked",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "use": "DESCRIPTIVE_ONLY",
+        "verdict": "CONTRADICTED"
+      },
+      "id": "all-adults",
+      "intent": {
+        "exclusions": "Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.",
+        "geography": "USA",
+        "measurement": "Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.",
+        "period": {
+          "from": 2020,
+          "to": 2023
+        },
+        "population": "All adult residents, including adults outside the labor force, as the denominator.",
+        "use": "DESCRIPTIVE_ONLY"
+      },
+      "intent_digest": "7b73cc280147f8c649ffded12e8db9d52bf733e654000db4947c7b011df76428",
+      "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+      "owner": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+      "parent_digest": "",
+      "parent_id": "",
+      "profile": "worldbank-unemployment-usa-2020-2023-v1",
+      "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+      "source": {
+        "digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "lines": [
+          "Adapter: worldbank-unemployment-usa-2020-2023-v1",
+          "Indicator id: SL.UEM.TOTL.ZS",
+          "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment.",
+          "Source organization: ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+          "Dataset collection: World Development Indicators",
+          "Country: United States (USA), national series",
+          "Requested API interval: 2020-2023, annual records",
+          "Non-null available years: 2020,2021,2022,2023",
+          "Null missing years: ",
+          "Scope boundary: no sampling frame, demographic coverage, adjustment details or causal design are inferred beyond the official definition and source organization above."
+        ],
+        "metadata_raw": "[{\"page\":1,\"pages\":1,\"per_page\":\"50\",\"total\":1},[{\"id\":\"SL.UEM.TOTL.ZS\",\"name\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\",\"unit\":\"\",\"source\":{\"id\":\"2\",\"value\":\"World Development Indicators\"},\"sourceNote\":\"Unemployment refers to the share of the labor force that is without work but available for and seeking employment.\",\"sourceOrganization\":\"ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https:\\/\\/ilostat.ilo.org\\/data\\/bulk\\/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026\",\"topics\":[{\"id\":\"4\",\"value\":\"Education \"},{\"id\":\"10\",\"value\":\"Social Protection & Labor\"}]}]]",
+        "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+        "metadata_url": "https://api.worldbank.org/v2/indicator/SL.UEM.TOTL.ZS?format=json",
+        "profile": "worldbank-unemployment-usa-2020-2023-v1",
+        "records": [
+          {
+            "available": true,
+            "year": 2020
+          },
+          {
+            "available": true,
+            "year": 2021
+          },
+          {
+            "available": true,
+            "year": 2022
+          },
+          {
+            "available": true,
+            "year": 2023
+          }
+        ],
+        "series_raw": "[{\"page\":1,\"pages\":1,\"per_page\":100,\"total\":4,\"sourceid\":\"2\",\"lastupdated\":\"2026-10-08\"},[{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2023\",\"value\":3.638,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2022\",\"value\":3.65,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2021\",\"value\":5.349,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2020\",\"value\":8.055,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1}]]",
+        "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+        "series_url": "https://api.worldbank.org/v2/country/USA/indicator/SL.UEM.TOTL.ZS?format=json&date=2020:2023&per_page=100"
+      }
+    },
+    {
+      "acknowledgement": {
+        "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+        "assessment_digest": "dc320003cdd30cb5e430bb900f440484dfdcd2221075c3547f9ad59b99fb3d19",
+        "digest": "d0fbfbb420c3a5e678aabe696af4b93481ee59a2796135efb42e74178c8890fd",
+        "intent_digest": "a4fb79592875ce8f3f2a9cef8670ca3060453bcaf7af11d8cab0c6536646f299",
+        "meaning": "review received; does not override decision or certify suitability",
+        "researcher": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "verdict": "UNKNOWN"
+      },
+      "analyst": "0x7c028fa8233e9aab631947e84ec6c13edcbfb0d6",
+      "assessment": {
+        "causal_design": "NOT_ESTABLISHED",
+        "certification_scope": "metadata support only; no accuracy, representativeness or causal certification",
+        "digest": "dc320003cdd30cb5e430bb900f440484dfdcd2221075c3547f9ad59b99fb3d19",
+        "dimensions": {
+          "exclusions": {
+            "citations": [
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "The official definition states unemployment is the share of the labor force that is without work but available for and seeking employment (line4), matching the intended conditions exactly and making no additional inclusion claims.",
+            "status": "SUPPORTED"
+          },
+          "geography": {
+            "citations": [
+              {
+                "line": 7,
+                "quote": "Country: United States (USA), national series"
+              }
+            ],
+            "mechanism": "deterministic country match",
+            "reason": "The frozen record is USA national data; this adapter cannot establish a global or California series.",
+            "status": "SUPPORTED"
+          },
+          "measurement": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "Indicator name explicitly identifies the value as a modeled ILO estimate and as a percent of total labor force (line3). The official definition confirms the unemployment share construct (line4).",
+            "status": "SUPPORTED"
+          },
+          "period": {
+            "citations": [
+              {
+                "line": 8,
+                "quote": "Requested API interval: 2020-2023, annual records"
+              },
+              {
+                "line": 9,
+                "quote": "Non-null available years: 2020,2021,2022,2023"
+              },
+              {
+                "line": 10,
+                "quote": "Null missing years: "
+              }
+            ],
+            "mechanism": "deterministic non-null coverage",
+            "reason": "All requested years have non-null official records.",
+            "status": "SUPPORTED"
+          },
+          "population": {
+            "citations": [
+              {
+                "line": 3,
+                "quote": "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)"
+              },
+              {
+                "line": 4,
+                "quote": "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment."
+              }
+            ],
+            "reason": "Indicator name states unemployment is a share of total labor force (line3), and the intent specifies the total labor force without claiming specific demographic coverage. The source does not assert narrower age, sex or household coverage, so the denominator aligns.",
+            "status": "SUPPORTED"
+          }
+        },
+        "intent_digest": "a4fb79592875ce8f3f2a9cef8670ca3060453bcaf7af11d8cab0c6536646f299",
+        "reason_provenance": "leader-authored explanations; semantic statuses independently reproduced and citations substantively checked",
+        "source_digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "use": "CAUSAL_EFFECT",
+        "verdict": "UNKNOWN"
+      },
+      "id": "causal-revision",
+      "intent": {
+        "exclusions": "Use the stated unemployment conditions: without work, available for work and seeking employment; make no additional inclusion claims.",
+        "geography": "USA",
+        "measurement": "Annual unemployment share of total labor force, in percent, using the modeled ILO estimate.",
+        "period": {
+          "from": 2020,
+          "to": 2023
+        },
+        "population": "The total labor force, without claiming specific age, sex or household coverage.",
+        "use": "CAUSAL_EFFECT"
+      },
+      "intent_digest": "a4fb79592875ce8f3f2a9cef8670ca3060453bcaf7af11d8cab0c6536646f299",
+      "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+      "owner": "0x26fdd82ca699e3c0eef410ab8d9a36c73361f38f",
+      "parent_digest": "c1e7e4d7bd4bca5625f6b56533c924bef499f9f6f6c16dc96f5d950ae1c56014",
+      "parent_id": "labor-force",
+      "profile": "worldbank-unemployment-usa-2020-2023-v1",
+      "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+      "source": {
+        "digest": "599e646c4326fccddbff74d195b94eaca42d212cff735cb30d00a5a1a17ff6ab",
+        "lines": [
+          "Adapter: worldbank-unemployment-usa-2020-2023-v1",
+          "Indicator id: SL.UEM.TOTL.ZS",
+          "Indicator name: Unemployment, total (% of total labor force) (modeled ILO estimate)",
+          "Official definition: Unemployment refers to the share of the labor force that is without work but available for and seeking employment.",
+          "Source organization: ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+          "Dataset collection: World Development Indicators",
+          "Country: United States (USA), national series",
+          "Requested API interval: 2020-2023, annual records",
+          "Non-null available years: 2020,2021,2022,2023",
+          "Null missing years: ",
+          "Scope boundary: no sampling frame, demographic coverage, adjustment details or causal design are inferred beyond the official definition and source organization above."
+        ],
+        "metadata_raw": "[{\"page\":1,\"pages\":1,\"per_page\":\"50\",\"total\":1},[{\"id\":\"SL.UEM.TOTL.ZS\",\"name\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\",\"unit\":\"\",\"source\":{\"id\":\"2\",\"value\":\"World Development Indicators\"},\"sourceNote\":\"Unemployment refers to the share of the labor force that is without work but available for and seeking employment.\",\"sourceOrganization\":\"ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https:\\/\\/ilostat.ilo.org\\/data\\/bulk\\/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026\",\"topics\":[{\"id\":\"4\",\"value\":\"Education \"},{\"id\":\"10\",\"value\":\"Social Protection & Labor\"}]}]]",
+        "metadata_sha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+        "metadata_url": "https://api.worldbank.org/v2/indicator/SL.UEM.TOTL.ZS?format=json",
+        "profile": "worldbank-unemployment-usa-2020-2023-v1",
+        "records": [
+          {
+            "available": true,
+            "year": 2020
+          },
+          {
+            "available": true,
+            "year": 2021
+          },
+          {
+            "available": true,
+            "year": 2022
+          },
+          {
+            "available": true,
+            "year": 2023
+          }
+        ],
+        "series_raw": "[{\"page\":1,\"pages\":1,\"per_page\":100,\"total\":4,\"sourceid\":\"2\",\"lastupdated\":\"2026-10-08\"},[{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2023\",\"value\":3.638,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2022\",\"value\":3.65,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2021\",\"value\":5.349,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1},{\"indicator\":{\"id\":\"SL.UEM.TOTL.ZS\",\"value\":\"Unemployment, total (% of total labor force) (modeled ILO estimate)\"},\"country\":{\"id\":\"US\",\"value\":\"United States\"},\"countryiso3code\":\"USA\",\"date\":\"2020\",\"value\":8.055,\"unit\":\"\",\"obs_status\":\"\",\"decimal\":1}]]",
+        "series_sha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a",
+        "series_url": "https://api.worldbank.org/v2/country/USA/indicator/SL.UEM.TOTL.ZS?format=json&date=2020:2023&per_page=100"
+      }
+    }
+  ]
+}

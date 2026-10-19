@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-10-19T09:27:01.003Z",
+  "profile": "worldbank-unemployment-usa-2020-2023-v1",
+  "metadataUrl": "https://api.worldbank.org/v2/indicator/SL.UEM.TOTL.ZS?format=json",
+  "seriesUrl": "https://api.worldbank.org/v2/country/USA/indicator/SL.UEM.TOTL.ZS?format=json&date=2020:2023&per_page=100",
+  "metadataSha256": "3ae370ed4bebba092338e94334c35add71490324ee57f1dfe81885dade51f52f",
+  "seriesSha256": "7ed89a07063bbc68d7fa013b3a19076dfe11a43eb91da9b71044e260f4d91b2a"
+}
