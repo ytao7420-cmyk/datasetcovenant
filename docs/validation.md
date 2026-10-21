@@ -2,7 +2,7 @@
 
 ## Current evidence boundary
 
-Implementation checks: **22 Python invariant tests and 24 JavaScript tests pass**. Production bundle builds. These are local tests with explicitly mocked GenLayer HTTP/model/consensus for Python. They do not prove actual network consensus or robustness against every prompt injection.
+Implementation checks: **23 Python invariant tests and 69 JavaScript tests pass**. Production bundle builds. These are local tests with explicitly mocked GenLayer HTTP/model/consensus for Python. They do not prove actual network consensus or robustness against every prompt injection.
 
 ## Recorded live result — 2026-10-19
 
@@ -24,6 +24,12 @@ Raw official source bytes and hashes were compared with contract state. The harn
 
 Tests cover distinct actors; immutable IDs/sources; source-hash changes; wrong country, indicator and duplicated years; incomplete page; null versus genuine zero; deterministic country and period checks; causal UNKNOWN; source citation bounds; independent semantic disagreement; substantive citation audit rejection; exact digest acknowledgement; wrong actor; changed-parent mismatch; and stale approval rejected on a revision. JavaScript tests cover digest corruption, acknowledgement binding, unsafe markup, and lifecycle/consensus/execution distinction.
 
+### Fresh public RPC recheck — 2026-10-21
+
+[The timestamped report](../public/evidence/recheck-2026-10-21.json) records 19/19 successful observations between 10:04:07 and 10:04:49 UTC: configured chain identity, deployed code SHA-256, all three complete covenant states, twelve successful workflow receipts, the exact stale-digest rollback receipt, and the deployment receipt. Every transaction receipt was `FINALIZED`; successful workflow calls matched the complete archived ABI calldata, actor, contract, full-validator flag and successful majority execution. The historical negative call matched the exact rollback payload. The revision now has its later valid acknowledgement; the report does not claim its current acknowledgement is absent.
+
+Inspect `node scripts/recheck-public.mjs --plan`, then run `node scripts/recheck-public.mjs` for account-free reads only. The script permits four declared public RPC methods, applies request/time budgets, and records failures or unavailable reads explicitly. It imports no private actor harness and submits no transaction. These CLI observations are distinct from the still-required current production browser-wallet demonstration.
+
 ## Reproduction scenarios (expected outcomes matched the recorded run)
 
 1. `labor-force`: national descriptive trend, modeled ILO percentage of total labor force, without undocumented demographic assumptions. Expected SUPPORTED.
@@ -36,7 +42,7 @@ Optional `--negative` performs a real zero-value call trying to acknowledge the 
 
 ## Browser review
 
-Open recorded evidence, switch through all three cases, expand a source citation, inspect acknowledgement and parent binding, then follow a transaction explorer link. The application should show actual majority-consensus evidence and clearly label project-controlled actors. In Live workspace, read the researcher address and covenant ID from the archive without connecting a wallet. A write requires the correct account for each role. Use Download covenant JSON to compare state with the public archive.
+Open recorded evidence, switch through all three cases, expand a source citation, inspect acknowledgement and parent binding, then follow a transaction explorer link. The application should show actual majority-consensus evidence and clearly label project-controlled actors. In Live workspace, read the researcher address and covenant ID from the archive without connecting a wallet. A write requires the correct account for each role. Use Download evidence envelope to retain the complete supplied provenance. Import the envelope and inspect each actual SHA-256 check. Use Compare with fresh on-chain state for a separately timestamped RPC observation. Content integrity does not authenticate transaction summaries or leader prose.
 
 The static checker validates archived summaries and integrity, not a fresh RPC read by itself. The live harness obtains receipt evidence from RPC and re-reads completed state. Fresh browser reads query the contract and show current on-chain state.
 
@@ -46,4 +52,10 @@ Chrome opened the recorded cases, expanded the official metadata citation and di
 
 ### Browser recovery regression checks
 
-Fifteen additional JavaScript tests import the actual browser transaction module with mocked transport and storage. They verify that the exact intended call is persisted before signing/broadcast; an unknown outcome survives reload and blocks another write; storage failure prevents sending; an explicit EIP-1193 user rejection clears the intent; and supplying an existing hash recovers without broadcasting. Recovery checks the receipt hash, actor, contract, full ABI calldata and full-validator flag, then verifies resulting contract state. A mismatched receipt cannot attach to or erase the pending intent. These tests are not a live-wallet network-disconnection experiment, and no additional chain calls were made for this fix.
+Thirty JavaScript tests import the actual browser transaction module with mocked transport and storage. They verify that the exact intended call is persisted before signing/broadcast; an unknown outcome survives reload and blocks another write; storage failure prevents sending; an explicit EIP-1193 user rejection clears the intent; and supplying an existing hash recovers without broadcasting. Recovery checks the receipt hash, actor, contract, full ABI calldata and full-validator flag, then verifies resulting contract state. A mismatched receipt cannot attach to or erase the pending intent. Delayed finality keeps the journal; only the exact provably unsigned operation may be explicitly released. A matched finalized rollback returns failed evidence without entering the success readback path. These tests are not a live-wallet network-disconnection experiment, and no additional chain calls were made for this fix.
+
+## Review remediation — 2026-10-21
+
+See [review-response.md](review-response.md) for the five reviewer requests, exact fixes, adversarial regression cases, current validation limits, and the required production browser-wallet procedure. See [ci.md](ci.md) for the actual official GenVM check and reproducible hosted workflow. The earlier observed Chrome check above remains read-only evidence; it has not been relabeled as a current browser write demonstration.
+
+The browser now distinguishes recorded-content SHA-256 integrity, independently reproduced semantic statuses/substantively checked citations, leader-authored explanatory prose, and fresh RPC state comparison. Imported provenance and recorded receipt summaries remain caller-supplied. Accepted execution remains pending finality; only finalized, exact-call-bound execution with successful readback clears the saved transaction.

@@ -1,0 +1,67 @@
+name: DatasetCovenant verification
+
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: GenVM, contract, browser logic, build and evidence
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24.19.0'
+          cache: npm
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12.14'
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Official GenVM lint and exact runner SDK validation
+        shell: bash
+        run: |
+          mkdir -p verification-logs
+          set -o pipefail
+          bash scripts/genvm-lint.sh 2>&1 | tee verification-logs/genvm-lint.txt
+      - name: Contract invariants (mocked runtime)
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run test:contract 2>&1 | tee verification-logs/contract-tests.txt
+      - name: Browser logic and adversarial regression tests
+        shell: bash
+        run: |
+          set -o pipefail
+          npm test 2>&1 | tee verification-logs/javascript-tests.txt
+      - name: Production build
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run build 2>&1 | tee verification-logs/build.txt
+      - name: Verify archived public evidence
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run verify 2>&1 | tee verification-logs/evidence.txt
+      - name: Upload verification logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: verification-${{ github.sha }}
+          path: verification-logs/
+          if-no-files-found: error
+          retention-days: 30

@@ -24,3 +24,11 @@ Website: https://datasetcovenant-genlayer-57.sales136152.chatgpt.site
 GitHub: https://github.com/ytao7420-cmyk/datasetcovenant
 Contract: https://explorer-studio.genlayer.com/address/0x9080E0C21432C8B3e66061bB9495645ca1c214B5
 Proof: commit-pinned docs/validation.md and public/evidence/demo.json
+
+## Review revision (same contribution; do not submit as a new project)
+
+Contribution ID: `30e18ec0-fd28-4568-86ef-3d94a42bbc98`.
+
+Remediation: leader-authored prose now has its own unverified label; semantic statuses and audited citations have separate presentation. The browser recomputes canonical SHA-256 commitments and exact raw-source hashes, preserves imported provenance in an envelope, and supports a separate fresh RPC comparison. Accepted execution stays pending finality with a retained journal. An exact provably unsigned operation may be explicitly released; uncertain broadcasts cannot be resent. Regression coverage includes misleading explanations, corrupted evidence, delayed finality, finalized rollback, pre-signing crashes and mismatched recovery hashes. The contract is unchanged.
+
+Attach the commit-pinned [review response](review-response.md), [validation procedure](validation.md), successful public CI run and actual updated production-wallet evidence. The local test suite, old CLI transactions and earlier read-only Chrome check do not replace that wallet demonstration. **This draft is not evidence that the revision has been resubmitted.**

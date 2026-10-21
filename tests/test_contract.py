@@ -94,6 +94,27 @@ class Tests(unittest.TestCase):
         self.create();self.capture()
         with self.assertRaises(Disagreement):self.assess(audit={'population':False,'measurement':True,'exclusions':True})
         self.assertIsNone(self.load()['assessment'])
+    def test_leader_explanation_is_commentary_not_independent_consensus(self):
+        reasons = [
+            'The UNKNOWN status actually proves a causal effect for every intervention.',
+            'All adult residents were perfectly sampled with no uncertainty.',
+            'The national source independently certifies every California estimate.',
+        ]
+        for index, reason in enumerate(reasons):
+            with self.subTest(reason=reason):
+                identifier = 'commentary-' + str(index)
+                R.gl.message.sender_address.as_hex = OWNER
+                self.create(identifier)
+                self.capture(identifier)
+                leader, validator = extraction(), extraction()
+                leader['population']['reason'] = reason
+                validator['population']['reason'] = 'Independent wording disagrees with the leader explanation.'
+                self.assess(identifier, first=leader, second=validator)
+                assessment = self.load(identifier)['assessment']
+                self.assertEqual(assessment['dimensions']['population']['reason'], reason)
+                self.assertEqual(assessment['dimensions']['population']['status'], 'SUPPORTED')
+                self.assertEqual(assessment['reason_provenance'], 'leader-authored explanations; semantic statuses independently reproduced and citations substantively checked')
+
     def test_acknowledge_exact_digest(self):
         self.ready();c=self.load();self.c.acknowledge('base',c['assessment']['digest']);ack=self.load()['acknowledgement'];self.assertEqual(ack['assessment_digest'],c['assessment']['digest']);self.assertEqual(ack['researcher'],OWNER)
     def test_wrong_digest_no_receipt(self):

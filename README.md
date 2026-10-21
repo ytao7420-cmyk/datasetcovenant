@@ -4,6 +4,8 @@ A usable research review desk built around a GenLayer Intelligent Contract. A re
 
 This is a **metadata-use attestation**, not a certificate of data accuracy, representativeness, scientific fitness or causality. The bounded first adapter covers World Bank WDI `SL.UEM.TOTL.ZS` (modeled ILO unemployment estimate), USA annual records for 2020–2023. All demonstration use cases and account roles are project-controlled synthetic scenarios.
 
+The [review remediation record](docs/review-response.md) distinguishes completed integrity, presentation and transaction-recovery fixes from outstanding production-wallet evidence. [Validation](docs/validation.md) and [official GenVM CI](docs/ci.md) document the checks and their limits. Leader-authored explanatory prose is not independently verified; imported provenance and receipt summaries remain caller-supplied until separately compared with RPC observations.
+
 ## Run
 
 Node 22+ and Python 3. Install with `npm ci`, then `npm run dev`. `npm run build` produces `dist/`. No backend or API secret is required. The browser uses `genlayer-js@1.1.8`, GenLayer Studionet (61999), and an explicitly selected MetaMask provider. No private key is placed in browser assets.

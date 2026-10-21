@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
-export const canonical=value=>value===null||typeof value!=='object'?JSON.stringify(value):Array.isArray(value)?'['+value.map(canonical).join(',')+']':'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}';
+import {canonical} from '../lib/evidence.js';
+export {canonical};
 export const sha256=value=>createHash('sha256').update(value).digest('hex');
 export function verifyDigest(record,field='digest') {const copy={...record};delete copy[field];assert.equal(sha256(canonical(copy)),record[field],`Invalid ${field}`);}
 export function verifyCovenant(c,expected){

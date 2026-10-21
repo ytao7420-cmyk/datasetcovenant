@@ -1,7 +1,7 @@
 import { createClient, abi } from 'genlayer-js';
 import { studionet } from 'genlayer-js/chains';
 import deployment from '../public/deployment.json';
-import { assertExecutionSucceeded, terminalStatus, consensusResult } from '../lib/receipt.js';
+import { assertExecutionSucceeded, terminalStatus, consensusResult, summarizeReceipt } from '../lib/receipt.js';
 
 const readClient = createClient({ chain: studionet });
 let walletClient;
@@ -19,7 +19,8 @@ if (typeof window !== 'undefined') {
 }
 let listener = () => {};
 let busy = false;
-const notify = (status, message, hash = '') => listener({status, message, hash});
+let activePending = null;
+const notify = (status, message, hash = '', details = {}) => listener({status, message, hash, ...details});
 const pendingKey = 'datasetcovenant.pending.v1';
 const allowedActions = ['create_covenant','capture_sources','assess','acknowledge'];
 const isHash = value => /^0x[0-9a-f]{64}$/i.test(value || '');
@@ -31,6 +32,47 @@ function savePending(pending) {
 function validatePending(pending) {
   if(!pending||pending.address?.toLowerCase()!==deployment.address.toLowerCase()||(pending.chainId!==undefined&&pending.chainId!==deployment.chainId)) throw Error('The saved transaction belongs to a different contract or network. Inspect its record.');
   if(!/^0x[0-9a-f]{40}$/i.test(pending.actor||'')||!allowedActions.includes(pending.method)||!Array.isArray(pending.args)) throw Error('The saved transaction intent is invalid. Keep it for manual inspection.');
+}
+function sameOperation(saved,expected) {
+  return !!saved && saved.operationId===expected.operationId && saved.chainId===expected.chainId &&
+    saved.actor===expected.actor && saved.address===expected.address && saved.method===expected.method &&
+    JSON.stringify(saved.args)===JSON.stringify(expected.args);
+}
+function assertStoredOperation(pending) {
+  const saved=pendingTransaction();
+  if(!sameOperation(saved,pending)||(saved.hash&&saved.hash!==pending.hash)) throw Error('The saved transaction operation changed. Inspect it before continuing.');
+  return saved;
+}
+function clearPending(pending) {
+  assertStoredOperation(pending);
+  localStorage.removeItem(pendingKey);
+}
+const walletBoundaries=new Set(['eth_sendTransaction','eth_sendRawTransaction','eth_signTransaction','wallet_sendCalls']);
+function journaledProvider(injected) {
+  return {request:async request=>{
+    if(walletBoundaries.has(request.method)) {
+      const operation=activePending;
+      if(!operation) throw Error('No active transaction operation exists for this wallet request.');
+      const saved=assertStoredOperation(operation);
+      if(saved.phase!=='UNSIGNED'||operation.phase!=='UNSIGNED') throw Error('This operation already reached the wallet signing or broadcast boundary. Recover its existing transaction before retrying.');
+      const boundary={...operation,phase:'BROADCAST_POSSIBLE',walletRequest:request.method,boundaryAt:new Date().toISOString()};
+      // Persist before forwarding: a crash or lost response after this point is
+      // uncertain even if the wallet has not returned a transaction hash.
+      savePending(boundary);
+      Object.assign(operation,boundary);
+    }
+    return injected.request(request);
+  }};
+}
+export function releaseUnsignedPending(operationId) {
+  if(busy) throw Error('A transaction operation is still processing.');
+  const pending=pendingTransaction();
+  validatePending(pending);
+  if(pending.version!==3||pending.phase!=='UNSIGNED'||pending.hash) throw Error('Only a verified unsigned operation may be released. Uncertain broadcasts require transaction recovery.');
+  if(typeof operationId!=='string'||!operationId||pending.operationId!==operationId) throw Error('The unsigned operation differs from the one selected for release.');
+  clearPending(pending);
+  notify('idle','Unsigned intent released. No signing or broadcast request was made.');
+  return pending;
 }
 export function assertReceiptMatchesIntent(pending,receipt) {
   validatePending(pending);
@@ -55,7 +97,7 @@ function definitiveFailure(receipt) {
 export function onStatus(callback) { listener = callback || (() => {}); }
 export const getWalletAddress = () => walletAddress;
 export const loadDeployment = async () => getConfig();
-export const txUrl = hash => /^0x[0-9a-f]{64}$/i.test(hash || '') ? `${deployment.explorer}/tx/${hash}` : '';
+export const txUrl = hash => typeof hash==='string'&&/^0x[0-9a-f]{64}$/i.test(hash) ? `${deployment.explorer}/tx/${hash}` : '';
 export const DEPLOYMENT = deployment;
 export function getConfig() { return {...deployment, ready: deployment.deployed && /^0x[0-9a-fA-F]{40}$/.test(deployment.address)}; }
 function requireDeployment() { if (!getConfig().ready) throw new Error('The project contract has not been deployed yet.'); }
@@ -93,7 +135,7 @@ export async function connectWallet() {
   if (!accounts[0]) throw new Error('No wallet account was selected.');
   await ensureNetwork(p);
   walletAddress = accounts[0];
-  walletClient = createClient({chain:studionet,account:walletAddress,provider:p});
+  walletClient = createClient({chain:studionet,account:walletAddress,provider:journaledProvider(p)});
   connectedProvider = p;
   notify('connected',`Connected ${walletAddress}`);
   return walletAddress;
@@ -151,34 +193,34 @@ async function write(method,args) {
     await ensureNetwork(p);
     // Persist the full intention before the wallet can sign or broadcast. A lost
     // response must never turn a second click into an automatic replacement call.
-    pending={version:2,chainId:deployment.chainId,hash:null,method,args:JSON.parse(JSON.stringify(args)),actor:walletAddress,address:deployment.address,phase:'BROADCAST_INTENT',intendedAt:new Date().toISOString()};
+    pending={version:3,operationId:globalThis.crypto.randomUUID(),chainId:deployment.chainId,hash:null,method,args:JSON.parse(JSON.stringify(args)),actor:walletAddress,address:deployment.address,phase:'UNSIGNED',intendedAt:new Date().toISOString()};
     savePending(pending);
-    notify('signing','Review the zero-value Studionet transaction in your wallet.');
+    activePending=pending;
+    notify('signing','Preparing a zero-value Studionet transaction. Review the request when your wallet opens.');
     hash=await walletClient.writeContract({address:deployment.address,functionName:method,args:pending.args,value:0n,leaderOnly:false});
     if(!isHash(hash)) throw Error('The wallet returned no valid transaction hash. The broadcast outcome is unknown; inspect wallet activity before recovering.');
+    assertStoredOperation(pending);
     pending={...pending,hash,phase:'PENDING',submittedAt:new Date().toISOString()};
     savePending(pending);
     notify('pending','Transaction submitted. Waiting for validator consensus…',hash);
     let receipt;
     try {receipt=await waitForExecution(hash,{pending});} catch(e) {
       // Keep uncertain transactions recoverable; clear only known terminal failures.
-      try {const failed=assertReceiptMatchesIntent(pending,await readClient.getTransaction({hash}));if(definitiveFailure(failed)) localStorage.removeItem(pendingKey);} catch {}
+      try {const failed=assertReceiptMatchesIntent(pending,await readClient.getTransaction({hash}));if(definitiveFailure(failed)) clearPending(pending);} catch {}
       throw e;
     }
-    const value=await verifyAction(pending.method,pending.args,pending.actor);
-    localStorage.removeItem(pendingKey);
-    notify('success','Execution succeeded and the resulting contract state was read back.',hash);
-    return {hash,value};
+    return await verifiedOutcome(pending,receipt);
   } catch(e) {
     // EIP-1193 4001 explicitly means the user rejected the signing request.
     // Transport/RPC errors and missing hashes remain uncertain and recoverable.
-    if(pending&&!hash&&e.code===4001) localStorage.removeItem(pendingKey);
+    if(pending&&!hash&&e.code===4001) {try {clearPending(pending);} catch {}}
     const uncertain=pendingTransaction();
     const message=e.shortMessage||e.message||'Transaction failed.';
-    notify(uncertain&&!uncertain.hash?'unknown':'error',uncertain&&!uncertain.hash?`${message} Broadcast outcome is unknown. Inspect wallet activity and attach its transaction hash; do not resend.`:message,hash);
+    const unsigned=uncertain?.version===3&&uncertain.phase==='UNSIGNED'&&!uncertain.hash;
+    notify(unsigned?'unsigned':uncertain&&!uncertain.hash?'unknown':'error',unsigned?`${message} This intent remains unsigned; release this exact intent to prepare a new operation.`:uncertain&&!uncertain.hash?`${message} Broadcast outcome is unknown. Inspect wallet activity and attach its transaction hash; do not resend.`:message,hash);
     throw e;
   }
-  finally {busy=false;}
+  finally {activePending=null;busy=false;}
 }
 export function pendingTransaction() {try {return JSON.parse(localStorage.getItem(pendingKey));} catch{return null;}}
 export async function resumePendingTransaction(recoveredHash='') {
@@ -193,18 +235,60 @@ export async function resumePendingTransaction(recoveredHash='') {
     if(!pending.hash) {
       const recovered={...pending,hash:recoveredHash};
       assertReceiptMatchesIntent(recovered,await readClient.getTransaction({hash:recoveredHash}));
+      assertStoredOperation(pending);
       Object.assign(pending,recovered,{phase:'PENDING',recoveredAt:new Date().toISOString()});
       savePending(pending);
     }
-    await waitForExecution(pending.hash,{pending});
-    await verifyAction(pending.method,pending.args,pending.actor);
-    localStorage.removeItem(pendingKey);
-    notify('success','Pending transaction completed; contract state verified.',pending.hash);
-    return pending;
+    const receipt=await waitForExecution(pending.hash,{pending});
+    return await verifiedOutcome(pending,receipt);
   } catch(e) {
-    try {if(pending.hash){const failed=assertReceiptMatchesIntent(pending,await readClient.getTransaction({hash:pending.hash}));if(definitiveFailure(failed)) localStorage.removeItem(pendingKey);}}catch{}
+    try {if(pending.hash){const failed=assertReceiptMatchesIntent(pending,await readClient.getTransaction({hash:pending.hash}));if(definitiveFailure(failed)) clearPending(pending);}}catch{}
     notify('error',e.message,pending.hash); throw e;
   } finally{busy=false;}
+}
+async function verifiedOutcome(pending,receipt) {
+  assertReceiptMatchesIntent(pending,receipt);
+  assertExecutionSucceeded(receipt);
+  const value=await verifyAction(pending.method,pending.args,pending.actor);
+  const summary=summarizeReceipt(receipt),lifecycle=summary.status,finalityPending=summary.finalityPending;
+  assertStoredOperation(pending);
+  if(finalityPending) savePending({...pending,phase:'ACCEPTED',lastObserved:summary});
+  else clearPending(pending);
+  notify(finalityPending?'accepted':'success',finalityPending?
+    'Execution accepted and contract state read back. Finalization pending; refresh this saved transaction without sending again.':
+    'Transaction finalized; execution and resulting contract state verified.',pending.hash,{summary,lifecycle,finalityPending});
+  return {hash:pending.hash,value,receipt,summary,lifecycle,finalityPending};
+}
+export async function refreshTransactionStatus(hash,onProgress) {
+  requireDeployment();
+  if(!isHash(hash)) throw Error('Enter the exact transaction hash to refresh.');
+  if(busy) throw Error('A transaction is already processing.');
+  const pending=pendingTransaction();
+  if(pending) {
+    validatePending(pending);
+    if(!pending.hash) throw Error('The saved broadcast outcome is unknown. Use existing-transaction recovery to attach a verified hash.');
+    if(pending.hash.toLowerCase()!==hash.toLowerCase()) throw Error('The requested hash differs from the saved transaction.');
+  } else if(localStorage.getItem(pendingKey)) throw Error('The saved transaction record is invalid. Keep it for manual inspection.');
+  if(onProgress) onStatus(onProgress);
+  busy=true;
+  try {
+    const receipt=await readClient.getTransaction({hash});
+    if(String(receipt?.hash).toLowerCase()!==hash.toLowerCase()) throw Error('Transaction hash differs from the requested status refresh.');
+    if(pending) assertReceiptMatchesIntent(pending,receipt);
+    const summary=summarizeReceipt(receipt),lifecycle=summary.status,finalityPending=summary.finalityPending;
+    if(pending&&definitiveFailure(receipt)) clearPending(pending);
+    let executionAccepted=false;
+    try {assertExecutionSucceeded(receipt);executionAccepted=true;} catch {}
+    // Accepted/finalized lifecycle can contain an agreed rollback. Return its
+    // failed receipt for explicit review; only successful execution gets read-back.
+    if(pending&&executionAccepted) return await verifiedOutcome(pending,receipt);
+    const observedStatus=executionAccepted?(finalityPending?'accepted':'success'):terminalStatus(receipt)?'error':'pending';
+    notify(observedStatus,
+      `Observed transaction lifecycle: ${lifecycle}; execution: ${summary.execution}; consensus: ${summary.consensusResult}.${finalityPending?' Finalization pending.':''}`,hash,{summary,lifecycle,finalityPending});
+    return {hash,value:null,receipt,summary,lifecycle,finalityPending};
+  } catch(error) {
+    notify('error',error.message,hash);throw error;
+  } finally {busy=false;}
 }
 export async function sendWrite(method,args,onProgress) {
   if(!allowedActions.includes(method)) throw new Error('Unknown DatasetCovenant action.');
