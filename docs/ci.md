@@ -1,6 +1,10 @@
 # Reproducible verification
 
-## Successful public run — 2026-10-21
+## Final repair and browser evidence — 2026-10-21
+
+[run 39590096882](https://github.com/ytao7420-cmyk/datasetcovenant/actions/runs/39590096882) passed for public commit `90b2d28e6240bf91b81e3e0116e9f342e8b9241d`. The hosted job completed successfully: official GenVM AST/exact-SDK validation, 23 Python tests, 72 JavaScript tests, production build, original archive verification, strict current-browser evidence verification (79 checks, nine finalized receipts, no pending evidence), and log upload. The corresponding browser code is published as Site v4, source `0b14048a652e2fcb3d8241b080d9e7a71d3ba5c3`; it uses the unchanged contract. The nine wallet calls are documented accurately as v2/v3 observations, followed by the v4 recovery correction. This section is a documentation-only follow-up to that verified source/evidence commit.
+
+## Historical baseline — 2026-10-21
 
 [Run 39582144118](https://github.com/ytao7420-cmyk/datasetcovenant/actions/runs/39582144118) completed with `success` for code commit `d0d3dc7fab7fbadb704418c991d8381593fc678c` on the public `main` branch. Official GenVM lint/exact SDK validation, 23 Python tests, 69 JavaScript tests, production build, archive verification and log upload all passed on the hosted Ubuntu runner. This records an actual completed run, not only a workflow declaration.
 
