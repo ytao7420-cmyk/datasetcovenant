@@ -1,5 +1,11 @@
 # Reproducible verification
 
+## Successful public run — 2026-10-21
+
+[Run 39582144118](https://github.com/ytao7420-cmyk/datasetcovenant/actions/runs/39582144118) completed with `success` for code commit `d0d3dc7fab7fbadb704418c991d8381593fc678c` on the public `main` branch. Official GenVM lint/exact SDK validation, 23 Python tests, 69 JavaScript tests, production build, archive verification and log upload all passed on the hosted Ubuntu runner. This records an actual completed run, not only a workflow declaration.
+
+## Workflow
+
 The public [DatasetCovenant verification workflow](https://github.com/ytao7420-cmyk/datasetcovenant/actions/workflows/verify.yml) runs on every `main` or `codex/**` push, pull request, and manual dispatch. Its five required steps are:
 
 1. **Official GenVM check:** AST safety checks and semantic/schema validation with the SDK selected by the existing contract's pinned `py-genlayer` header.
