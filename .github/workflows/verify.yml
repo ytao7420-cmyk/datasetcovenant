@@ -57,6 +57,11 @@ jobs:
         run: |
           set -o pipefail
           npm run verify 2>&1 | tee verification-logs/evidence.txt
+      - name: Verify production browser workflow evidence
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run verify:browser 2>&1 | tee verification-logs/browser-evidence.txt
       - name: Upload verification logs
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

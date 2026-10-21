@@ -6,13 +6,14 @@
 
 ## Workflow
 
-The public [DatasetCovenant verification workflow](https://github.com/ytao7420-cmyk/datasetcovenant/actions/workflows/verify.yml) runs on every `main` or `codex/**` push, pull request, and manual dispatch. Its five required steps are:
+The public [DatasetCovenant verification workflow](https://github.com/ytao7420-cmyk/datasetcovenant/actions/workflows/verify.yml) runs on every `main` or `codex/**` push, pull request, and manual dispatch. Its six required steps are:
 
 1. **Official GenVM check:** AST safety checks and semantic/schema validation with the SDK selected by the existing contract's pinned `py-genlayer` header.
 2. **Contract tests:** deterministic invariants under the explicitly mocked HTTP/model/consensus runtime in `tests/test_contract.py`.
 3. **JavaScript tests:** evidence integrity, provenance presentation, receipt lifecycle, readback, and recovery regressions.
 4. **Production build:** Vite compiles the browser application.
-5. **Public archive verification:** rehash and validate the checked-in evidence and receipt references.
+5. **Public archive verification:** rehash and validate the original checked-in evidence and receipt references.
+6. **Current browser evidence:** strictly verify all nine recorded raw/decoded receipts, exact ABI, final states, rejection-time null acknowledgement, actual downloaded envelopes and pure-page screenshot hashes (`npm run verify:browser`). This is an offline check of recorded public evidence, not a new browser run or fresh RPC authentication.
 
 Each command must exit successfully. `pipefail` preserves failures while saving logs as the commit-specific `verification-<sha>` artifact. The workflow does not run `npm run live`, sign transactions, handle private keys, or deploy a website. A passing run verifies the checked-out source and archived evidence; it does not replace a current production browser-wallet demonstration.
 
@@ -37,6 +38,7 @@ npm run test:contract
 npm test
 npm run build
 npm run verify
+npm run verify:browser
 ```
 
 Set `DATASETCOVENANT_PYTHON` to a Python 3.12 executable when `python3` points to another version. The linter uses an isolated cache virtual environment, and the official runner bundle is cached under `~/.cache/genvm-linter`. The first run downloads approximately 326 MB. No secrets are required.

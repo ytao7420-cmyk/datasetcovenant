@@ -87,6 +87,7 @@ export function assertReceiptMatchesIntent(pending,receipt) {
 }
 function definitiveFailure(receipt) {
   if (!terminalStatus(receipt)) return false;
+  if (summarizeReceipt(receipt).finalityPending) return false;
   if (['MAJORITY_DISAGREE','NO_MAJORITY','DISAGREE','TIMEOUT','DETERMINISTIC_VIOLATION'].includes(consensusResult(receipt))) return true;
   const status=String(receipt.statusName || receipt.status_name || receipt.status).toUpperCase();
   if (!['ACCEPTED','FINALIZED','5','7'].includes(status)) return true;
@@ -230,6 +231,7 @@ export async function resumePendingTransaction(recoveredHash='') {
   if(pending.hash&&recoveredHash&&pending.hash.toLowerCase()!==recoveredHash.toLowerCase()) throw Error('A saved hash cannot be replaced by a different transaction.');
   if(!pending.hash&&!isHash(recoveredHash)) throw Error('The broadcast outcome is unknown. Inspect wallet activity or the actor history, then supply the exact transaction hash. No transaction will be resent.');
   if(busy) throw new Error('A transaction is already processing.');
+  if(pending.hash) return refreshTransactionStatus(pending.hash);
   busy=true;
   try {
     if(!pending.hash) {
@@ -239,12 +241,10 @@ export async function resumePendingTransaction(recoveredHash='') {
       Object.assign(pending,recovered,{phase:'PENDING',recoveredAt:new Date().toISOString()});
       savePending(pending);
     }
-    const receipt=await waitForExecution(pending.hash,{pending});
-    return await verifiedOutcome(pending,receipt);
   } catch(e) {
-    try {if(pending.hash){const failed=assertReceiptMatchesIntent(pending,await readClient.getTransaction({hash:pending.hash}));if(definitiveFailure(failed)) clearPending(pending);}}catch{}
     notify('error',e.message,pending.hash); throw e;
   } finally{busy=false;}
+  return refreshTransactionStatus(pending.hash);
 }
 async function verifiedOutcome(pending,receipt) {
   assertReceiptMatchesIntent(pending,receipt);
@@ -282,6 +282,10 @@ export async function refreshTransactionStatus(hash,onProgress) {
     // Accepted/finalized lifecycle can contain an agreed rollback. Return its
     // failed receipt for explicit review; only successful execution gets read-back.
     if(pending&&executionAccepted) return await verifiedOutcome(pending,receipt);
+    if(pending&&finalityPending) {
+      assertStoredOperation(pending);
+      savePending({...pending,phase:'ACCEPTED',lastObserved:summary});
+    }
     const observedStatus=executionAccepted?(finalityPending?'accepted':'success'):terminalStatus(receipt)?'error':'pending';
     notify(observedStatus,
       `Observed transaction lifecycle: ${lifecycle}; execution: ${summary.execution}; consensus: ${summary.consensusResult}.${finalityPending?' Finalization pending.':''}`,hash,{summary,lifecycle,finalityPending});

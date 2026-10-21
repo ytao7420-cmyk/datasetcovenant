@@ -139,3 +139,18 @@ test('historical accepted rollback retains pending finality and its raw receipt 
  assert.equal(observed.receipt,failed);assert.equal(observed.lifecycle,'ACCEPTED');assert.equal(observed.finalityPending,true);assert.equal(observed.summary.finalityPending,true);assert.equal(observed.summary.finalized,false);assert.equal(observed.summary.execution,'UNCONFIRMED_OR_FAILED');assert.equal(h.events.at(-1).status,'error');assert.match(h.events.at(-1).message,/Finalization pending/);
  assertExpectedRollback(observed.receipt,payload);assert.equal(h.module.getPending(),null);assert.equal(h.calls.reads,0);assert.equal(h.calls.writes,0);assert.equal(h.calls.broadcasts,0);
 });
+
+test('accepted pending rollback survives reload and resumes to finalized failure without rebroadcast',async()=>{
+ const payload='Acknowledgement must bind the exact frozen assessment digest';
+ const failed={...receipt(),statusName:'ACCEPTED'};failed.consensus_data.leader_receipt[0]={mode:'leader',execution_result:'ERROR',result:{status:'rollback',payload}};
+ const h=await harness({storage:new Map([[key,JSON.stringify(pending({hash}))]]),getTransaction:async()=>failed});
+ const accepted=await h.module.refreshTransactionStatus(hash);assertExpectedRollback(accepted.receipt,payload);assert.equal(accepted.finalityPending,true);assert.equal(h.module.getPending().hash,hash);assert.equal(h.module.getPending().phase,'ACCEPTED');assert.equal(h.events.at(-1).status,'error');assert.match(h.events.at(-1).message,/Finalization pending/);await assert.rejects(h.send(),/pending/);assert.equal(h.calls.writes,0);
+ let finalized=false;const reload=await harness({storage:h.values,getTransaction:async()=>({...failed,statusName:finalized?'FINALIZED':'ACCEPTED'})});
+ const again=await reload.module.resumePendingTransaction();assert.equal(again.lifecycle,'ACCEPTED');assertExpectedRollback(again.receipt,payload);assert.equal(reload.module.getPending().hash,hash);
+ finalized=true;const done=await reload.module.resumePendingTransaction();assert.equal(done.lifecycle,'FINALIZED');assert.equal(done.finalityPending,false);assertExpectedRollback(done.receipt,payload);assert.equal(done.value,null);assert.equal(reload.module.getPending(),null);assert.equal(reload.events.at(-1).status,'error');assert.equal(reload.calls.writes,0);assert.equal(reload.calls.broadcasts,0);assert.equal(reload.calls.reads,0);
+});
+test('write polling an accepted rollback retains its saved call for read-only failed-receipt recovery',async()=>{
+ const failed={...receipt(),statusName:'ACCEPTED'};failed.consensus_data.leader_receipt[0]={mode:'leader',execution_result:'ERROR',result:{status:'rollback',payload:'Acknowledgement must bind the exact frozen assessment digest'}};
+ const h=await harness({getTransaction:async()=>failed});await assert.rejects(h.send(),/execution was not successful/);assert.equal(h.module.getPending().hash,hash);
+ const recovered=await h.module.resumePendingTransaction();assert.equal(recovered.receipt,failed);assert.equal(recovered.finalityPending,true);assert.equal(h.module.getPending().phase,'ACCEPTED');assert.equal(h.calls.writes,1);assert.equal(h.calls.broadcasts,1);assert.equal(h.calls.reads,0);assert.equal(h.events.at(-1).status,'error');
+});
