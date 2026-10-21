@@ -131,3 +131,11 @@ test('a pending rollback with a different actor cannot return trusted evidence o
 test('explorer transaction links reject non-string caller-supplied hashes without coercion',async()=>{
  const h=await harness();for(const invalid of [null,undefined,17,{toString:'not callable'},[hash]])assert.equal(h.module.txUrl(invalid),'');assert.equal(h.module.txUrl(hash),config.explorer+'/tx/'+hash);
 });
+
+test('historical accepted rollback retains pending finality and its raw receipt for explicit rejection review',async()=>{
+ const payload='Acknowledgement must bind the exact frozen assessment digest';
+ const failed={...receipt(),statusName:'ACCEPTED'};failed.consensus_data.leader_receipt[0]={mode:'leader',execution_result:'ERROR',result:{status:'rollback',payload}};
+ const h=await harness({getTransaction:async()=>failed});const observed=await h.module.refreshTransactionStatus(hash);
+ assert.equal(observed.receipt,failed);assert.equal(observed.lifecycle,'ACCEPTED');assert.equal(observed.finalityPending,true);assert.equal(observed.summary.finalityPending,true);assert.equal(observed.summary.finalized,false);assert.equal(observed.summary.execution,'UNCONFIRMED_OR_FAILED');assert.equal(h.events.at(-1).status,'error');assert.match(h.events.at(-1).message,/Finalization pending/);
+ assertExpectedRollback(observed.receipt,payload);assert.equal(h.module.getPending(),null);assert.equal(h.calls.reads,0);assert.equal(h.calls.writes,0);assert.equal(h.calls.broadcasts,0);
+});
